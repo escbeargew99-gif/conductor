@@ -25,27 +25,25 @@ This document summarizes key rules and best practices from the Google C# Style G
   ```
 - **Line Length:** Column limit 100.
 - **One Statement Per Line:** Each statement on its own line.
-- **Column Alignment:** Align consecutive declarations and assignments for readability when appropriate.
 
 ## 3. Declaration Order
-Within a class, enum, interface, or struct:
-1. Constant fields
-2. Static fields
-3. Fields
-4. Constructors
-5. Finalizers (if any)
-6. Delegates
-7. Events
-8. Enums
-9. Interfaces (if any)
-10. Properties
-11. Indexers
-12. Methods
-13. Structs
-14. Classes
+Class member ordering:
+- Group members in this order:
+  1. Nested classes, enums, delegates, and events
+  2. Static, const, and readonly fields
+  3. Fields and properties
+  4. Constructors and finalizers
+  5. Methods
+- Within each group, order by accessibility:
+  1. Public
+  2. Internal
+  3. Protected internal
+  4. Protected
+  5. Private
+- Where possible, group interface implementations together.
 
 ## 4. Language Features
-- **var:** Use `var` when the type is obvious from the right side. Avoid for basic types, numeric types, or when type clarity helps readability.
+- **var:** Use of `var` is encouraged if it aids readability by avoiding type names that are noisy, obvious, or unimportant. Prefer explicit types when it improves clarity.
   ```csharp
   var apple = new Apple();  // Good - type is obvious
   bool success = true;  // Preferred over var for basic types
@@ -55,7 +53,9 @@ Within a class, enum, interface, or struct:
   public int Age => _age;
   // Methods: prefer block bodies.
   ```
-- **String Interpolation:** Prefer string interpolation over `String.Format()` or concatenation.
+- **String Interpolation:** In general, use whatever is easiest to read, particularly for logging and assert messages.
+  - Be aware that chained `operator+` concatenations can be slower and cause memory churn.
+  - If performance is a concern, `StringBuilder` can be faster for multiple concatenations.
   ```csharp
   var message = $"Hello, {name}!";
   ```
@@ -74,40 +74,19 @@ Within a class, enum, interface, or struct:
 
 ## 5. Best Practices
 - **Access Modifiers:** Always explicitly declare access modifiers (don't rely on defaults).
-- **this:** Do not use `this.` unless required for disambiguation.
-- **Ordering Modifiers:** Use standard order: `public protected private internal static extern new virtual abstract sealed override readonly unsafe volatile async`.
+- **Ordering Modifiers:** Use standard order: `public protected internal private new abstract virtual override sealed static readonly extern unsafe volatile async`.
 - **Namespace Imports:** Place `using` directives at the top of the file (outside namespaces); `System` first, then alphabetical.
 - **Constants:** Always make variables `const` when possible; if not, use `readonly`. Prefer named constants over magic numbers.
 - **Array vs List:** Prefer `List<>` for public variables, properties, and return types. Use arrays when size is fixed and known at construction time, or for multidimensional arrays.
 - **Extension Methods:** Only use when the source is unavailable or changing it is infeasible. Only for core, general features. Be aware they obfuscate code.
 - **LINQ:** Use LINQ for readability, but be mindful of performance in hot paths.
-- **String Comparison:** Use `StringComparison` parameter for string comparisons.
-  ```csharp
-  if (name.Equals(other, StringComparison.OrdinalIgnoreCase))
-  ```
 
-## 6. Comments and Documentation
-- **XML Documentation:** Use XML comments (`///`) for all public APIs.
-  ```csharp
-  /// <summary>
-  /// Gets or sets the user name.
-  /// </summary>
-  public string UserName { get; set; }
-  ```
-- **Implementation Comments:** Use `//` for inline comments explaining complex logic.
-- **TODO Comments:** Use `// TODO(username): Description` format.
-- **Avoid Obvious Comments:** Comments should add value, not restate the code.
-
-## 7. File Organization
+## 6. File Organization
 - **One Class Per File:** Typically one class, interface, enum, or struct per file.
 - **File Name:** Should match the name of the primary type in the file.
 - **Namespace:** Should follow folder structure.
 
-## 8. Disallowed Features
-- **goto:** Do not use `goto` statements.
-- **#regions:** **Avoid `#region`**. Organize code with proper file structure instead.
-
-## 9. Parameters and Returns
+## 7. Parameters and Returns
 - **out Parameters:** Permitted for output-only values; place `out` parameters after all other parameters. Prefer tuples or return types when they improve clarity.
 - **Argument Clarity:** When argument meaning is nonobvious, use named constants, replace `bool` with `enum`, use named arguments, or create a configuration class/struct.
   ```csharp
@@ -117,20 +96,6 @@ Within a class, enum, interface, or struct:
   // Good
   var options = new ProductOptions { PrecisionDecimals = 7, UseCache = CacheUsage.DontUseCache };
   DecimalNumber product = CalculateProduct(values, options, completionDelegate: null);
-  ```
-
-## 10. Modern C# Features
-- **Nullable Reference Types:** Enable and use nullable reference types (`#nullable enable`).
-- **Records:** Use record types for immutable data models.
-- **Init-only Properties:** Use `init` for immutable properties after construction.
-- **Switch Expressions:** Prefer switch expressions over switch statements for assignments.
-  ```csharp
-  var result = value switch
-  {
-      1 => "one",
-      2 => "two",
-      _ => "other"
-  };
   ```
 
 **BE CONSISTENT.** When editing code, follow the existing style in the codebase.
