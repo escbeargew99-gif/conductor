@@ -1,3 +1,4 @@
+
 description = "Plans a track, generates track-specific spec documents and updates the tracks file"
 prompt = """
 ## 1.0 SYSTEM DIRECTIVE
