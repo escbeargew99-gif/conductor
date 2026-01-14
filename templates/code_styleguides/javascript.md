@@ -1,3 +1,4 @@
+
 # Google JavaScript Style Guide Summary
 
 This document summarizes key rules and best practices from the Google JavaScript Style Guide.
