@@ -1,4 +1,3 @@
-
 # Google Python Style Guide Summary
 
 This document summarizes key rules and best practices from the Google Python Style Guide.
