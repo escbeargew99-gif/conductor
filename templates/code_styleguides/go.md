@@ -1,3 +1,4 @@
+
 # Effective Go Style Guide Summary
 
 This document summarizes key rules and best practices from the official "Effective Go" guide for writing idiomatic Go code.
