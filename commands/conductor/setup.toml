@@ -1,3 +1,4 @@
+
 description = "Scaffolds the project and sets up the Conductor environment"
 prompt = """
 ## 1.0 SYSTEM DIRECTIVE
