@@ -1,3 +1,4 @@
+
 # Google C# Style Guide Summary
 
 This document summarizes key rules and best practices from the Google C# Style Guide.
