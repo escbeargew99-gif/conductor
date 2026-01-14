@@ -1,3 +1,4 @@
+
 description = "Executes the tasks defined in the specified track's plan"
 prompt = """
 ## 1.0 SYSTEM DIRECTIVE
