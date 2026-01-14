@@ -1,4 +1,3 @@
-
 # Dart Code Style Guide
 
 This guide summarizes key recommendations from the official Effective Dart documentation, covering style, documentation, language usage, and API design principles. Adhering to these guidelines promotes consistent, readable, and maintainable Dart code.
